@@ -12,16 +12,34 @@ def index():
 @app.route('/print/<string:parameter>')
 def print_string(parameter):
     print(parameter)
-    return f"<h2>{parameter}</h2>"
+    return str(parameter)
 
 @app.route('/count/<int:parameter>')
 def count(parameter):
-    numbers = '\n'.join(str(i) for i in range(parameter + 1))
+    numbers = ""
+    for num in range(parameter):
+        numbers += f'{num}\n'
+    return numbers
+    # return '\n'.join([str(i) for i in range(parameter)])
     # numbers = ''
     # for number in range(parameter):
     #     numbers.join(number, "\n")
-    return f'<pre>{numbers}</pre>'
 
+@app.route('/math/<int:num1>/<string:operation>/<int:num2>')
+def math(num1, operation, num2):
+    result = 0
+    if operation == "+":
+        result = num1 + num2
+    elif operation == "-":
+        result = num1 - num2
+    elif operation == "*":
+        result = num1 * num2
+    elif operation == "div":
+        result = num1 / num2
+    elif operation == "%":
+        result = num1 % num2
+    else: return "Invalid operation! "
+    return str(result)
 
 
 
